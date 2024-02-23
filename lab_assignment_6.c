@@ -1,8 +1,27 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 int search(int numbers[], int low, int high, int value) 
 {
-	return -1;
+	if (low > high) {
+		// if the lower bound somehow gets larger than the upper bound
+		return -1;
+	}
+	else {
+		int mid = (low + high) / 2; // take the middle value between the bounds
+		if (numbers[mid] > value) {
+			// this will occur if the value is to the left of index mid
+			return search(numbers, low, high - 1, value);
+		}
+		 else if (numbers[mid] < value) {
+			// this will occur if the value is to the right of index mid
+			return search(numbers, low + 1, high, value);
+		}
+		else if (numbers[mid] == value) {
+			// this will occur once the value is at index mid
+			return mid;
+		}
+	}
 }
 
 void printArray(int numbers[], int sz)
